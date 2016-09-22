@@ -6,7 +6,6 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
-import model.MatchesList;
 
 public class BottomPane extends HBox {
 
@@ -24,20 +23,11 @@ public class BottomPane extends HBox {
         });
     this.getChildren().add(exitButton);
 
-    Button importResults = new Button("Import results");
-    importResults.addEventHandler(MouseEvent.MOUSE_RELEASED,
-        new EventHandler<MouseEvent>() {
-          public void handle(MouseEvent e) {
-            MatchesList.readMatchesScore();
-            CenterPane.getInstance().buildMatches();
-            LeftPane.getInstance().getWithdrawButton().setDisable(true);
-          }
-        });
+
 
     this.setSpacing(10);
     this.setPadding(new Insets(10));
     this.setAlignment(Pos.CENTER);
-    this.getChildren().add(importResults);
   }
 
   public static BottomPane getInstance() {

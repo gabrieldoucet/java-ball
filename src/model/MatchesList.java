@@ -33,7 +33,8 @@ public class MatchesList extends ArrayList<Match> {
   }
 
   public static void withdrawTeam(String teamName) {
-
+    MatchesList.getInstance()
+        .removeIf(p -> p.getTeam1().getName().equals(teamName) || p.getTeam2().getName().equals(teamName));
   }
 
   public static void readMatchesScore() {
@@ -43,27 +44,47 @@ public class MatchesList extends ArrayList<Match> {
       String[] tokens = score.split(" ");
       Team team1 = new Team(tokens[0]);
       Team team2 = new Team(tokens[2]);
-      Match existingMatch;
-      TeamsComparator tc = new TeamsComparator();
-      int res = tc.compare(team1, team2);
-      if (res > 0) {
-        existingMatch = MatchesList.getMatchFromTeams(team2, team1);
-        existingMatch.getScore().setScoreTeam1(Integer.parseInt(tokens[3]));
-        existingMatch.getScore().setScoreTeam2(Integer.parseInt(tokens[1]));
-      } else {
-        existingMatch = MatchesList.getMatchFromTeams(team1, team2);
-        existingMatch.getScore().setScoreTeam1(Integer.parseInt(tokens[1]));
-        existingMatch.getScore().setScoreTeam2(Integer.parseInt(tokens[3]));
+      if (TeamsList.getTeamIndexFromName(team1.getName()) != -1
+          || TeamsList.getTeamIndexFromName(team2.getName()) != -1) {
+        Match existingMatch;
+        TeamsComparator tc = new TeamsComparator();
+        int res = tc.compare(team1, team2);
+        if (res > 0) {
+          existingMatch = MatchesList.getMatchFromTeams(team2, team1);
+          existingMatch.setGoalsTeam1(tokens[3]);
+          existingMatch.setGoalsTeam2(tokens[1]);
+        } else {
+          existingMatch = MatchesList.getMatchFromTeams(team1, team2);
+          existingMatch.setGoalsTeam1(tokens[1]);
+          existingMatch.setGoalsTeam2(tokens[3]);
+        }
       }
     }
   }
 
   public static Match getMatchFromTeams(Team team1, Team team2) {
-    int indexTeam1 = team1.getIndex();
-    int indexTeam2 = team2.getIndex();
-    int matchIndex = (indexTeam1 * (2 * TeamsList.getInstance().size() - 2
-        - indexTeam1 + 1)) / 2;
-    matchIndex += Math.abs(indexTeam2 - indexTeam1 - 1);
-    return matchesList.get(matchIndex);
+    TeamsComparator tc = new TeamsComparator();
+    int res = tc.compare(team1, team2);
+    int indexTeam1;
+    int indexTeam2;
+    if (res >0) {
+      indexTeam1 = team2.getIndex();
+      indexTeam2 = team1.getIndex();
+    } else {
+      indexTeam1 = team1.getIndex();
+      indexTeam2 = team2.getIndex();
+    }
+    System.out.println(indexTeam1 + " " + indexTeam2);
+    int firstTeam1MatchIndex = (indexTeam1 * (2 * TeamsList.getInstance().size() - 2 - indexTeam1 + 1)) / 2;
+    firstTeam1MatchIndex += Math.abs(indexTeam2 - indexTeam1 - 1);
+    return matchesList.get(firstTeam1MatchIndex);
+  }
+  
+  public static void updateMatchScore(String teamName1, String score1, String teamName2, String score2) {    
+    System.out.println(teamName1 + " " + teamName2);
+    Match match = MatchesList.getMatchFromTeams(new Team(teamName1), new Team(teamName2));
+    match.setGoalsTeam1(score1);
+    match.setGoalsTeam2(score2);
+    match.printMatch();
   }
 }

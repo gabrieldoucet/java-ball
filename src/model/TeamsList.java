@@ -29,4 +29,17 @@ public class TeamsList extends ArrayList<Team> {
     return teamsList;
   }
   
+  public static int getTeamIndexFromName(String teamName) {
+    for (int i = 0; i < teamsList.size(); i++) {
+      if (teamsList.get(i).getName().equals(teamName)) {
+        return i;
+      }
+    }
+    return -1;
+  }
+  
+  public static void withdrawTeam(String teamName) {
+    int teamIndex = TeamsList.getTeamIndexFromName(teamName);
+    teamsList.remove(teamIndex);
+  }  
 }

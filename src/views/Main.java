@@ -10,6 +10,8 @@ public class Main extends Application {
   @Override
   public void start(Stage primaryStage) {
     try {
+      
+      // Ensures that the model is intialised before the views
       MatchesList.buildMatches();
       
       BorderPane root = new BorderPane();
@@ -22,9 +24,10 @@ public class Main extends Application {
       primaryStage.setScene(scene);
       primaryStage.show();
       
-      root.setLeft(LeftPane.getInstance());
+      root.setLeft(MatchesPane.getInstance());
       root.setTop(TopPane.getInstance());
-      root.setCenter(CenterPane.getInstance());
+      root.setRight(EditionPane.getInstance());
+//      root.setCenter(CenterPane.getInstance());
       root.setBottom(BottomPane.getInstance());
       
     } catch (Exception e) {

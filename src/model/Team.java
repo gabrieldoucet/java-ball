@@ -24,12 +24,7 @@ public class Team {
   }
 
   public int getIndex() {
-    for (int i = 0; i < TeamsList.getInstance().size(); i++) {
-      if (TeamsList.getInstance().get(i).getName().equals(this.name)) {
-        return i;
-      }
-    }
-    return -1;
+    return TeamsList.getTeamIndexFromName(this.name);
   }
 
   public void printTeam() {

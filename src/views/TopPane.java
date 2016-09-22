@@ -16,7 +16,7 @@ public class TopPane extends HBox {
     super();
     
     Label title = new Label("JavaBall Tournament");
-    title.setFont(Font.font("Gill Sans", FontWeight.BOLD, 14));
+    title.setFont(Font.font("Gill Sans", FontWeight.BOLD, 25));
     this.setAlignment(Pos.CENTER);
     this.getChildren().add(title);
     this.setPadding(new Insets(5));
