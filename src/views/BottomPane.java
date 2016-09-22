@@ -30,9 +30,10 @@ public class BottomPane extends HBox {
           public void handle(MouseEvent e) {
             MatchesList.readMatchesScore();
             CenterPane.getInstance().buildMatches();
+            LeftPane.getInstance().getWithdrawButton().setDisable(true);
           }
         });
-    
+
     this.setSpacing(10);
     this.setPadding(new Insets(10));
     this.setAlignment(Pos.CENTER);
