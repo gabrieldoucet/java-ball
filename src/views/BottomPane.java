@@ -18,15 +18,13 @@ public class BottomPane extends HBox {
     exitButton.addEventHandler(MouseEvent.MOUSE_RELEASED,
         new EventHandler<MouseEvent>() {
           public void handle(MouseEvent e) {
-            // primaryStage.close();
+            Main.close();
           }
         });
     this.getChildren().add(exitButton);
 
-
-
     this.setSpacing(10);
-    this.setPadding(new Insets(10));
+    this.setPadding(new Insets(0, 0, 30, 0));
     this.setAlignment(Pos.CENTER);
   }
 

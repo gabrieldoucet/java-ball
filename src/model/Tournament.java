@@ -9,8 +9,8 @@ public class Tournament {
 
   public static void main(String[] args) {
 
-    MatchesList.buildMatches();
-    MatchesList.readMatchesScore();
+//    MatchesList.buildMatches();
+//    MatchesList.readMatchesScore();
   }
 
   private Tournament() {

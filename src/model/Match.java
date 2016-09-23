@@ -12,7 +12,8 @@ public class Match {
   private StringProperty team2NameProperty;
   private StringProperty team1GoalsProperty;
   private StringProperty team2GoalsProperty;
-
+  private boolean isProcessed = false;
+  
   public Match(Team team1, Team team2) {
 
     TeamsComparator tc = new TeamsComparator();
@@ -74,6 +75,14 @@ public class Match {
     return tc.compare(m.getTeam1(), this.team1) == 0 && tc.compare(m.getTeam2(), this.team2) == 0;
   }
 
+  public boolean processed() {
+    return this.isProcessed;
+  }
+
+  public void setProcessed(boolean val) {
+    this.isProcessed = val;
+  }
+  
   public void printMatch() {
     System.out.println(String.join(" ", this.team1.getName(), this.team1GoalsProperty.getValue(), this.team2.getName(),
         this.team2GoalsProperty.getValue()));
